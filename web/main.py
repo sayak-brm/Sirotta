@@ -9,7 +9,7 @@ def main():
         template.html_bottom()
         return
     query = tools.process(form['q'].value)
-    with open('doc_index.bin', 'rb') as file: index = pickle.load(file)
+    with open('corpus.index', 'rb') as file: index = pickle.load(file)
     print('<h3>Searching for:</h3><h4>', query, '</h4>')
     result = {}
     result[0] = phrase_query(query, index)

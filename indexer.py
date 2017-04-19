@@ -37,7 +37,7 @@ def build_index(files=__import__('glob').glob('corpus/**/*.html', recursive=True
     input('Stage 1:\n')
     index_files(files)
     input('\n\nStage 2:\n')
-    with open('index.bin', 'wb') as file: pickle.dump(invert_index(files), file)
+    with open('corpus.index', 'wb') as file: pickle.dump(invert_index(files), file)
 
 if __name__ =='__main__':
     global temp

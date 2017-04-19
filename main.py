@@ -4,7 +4,7 @@ from query import *
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 query = tools.process(input())
 
-with open('doc_index.bin', 'rb') as file: index = pickle.load(file)
+with open('corpus.index', 'rb') as file: index = pickle.load(file)
 
 result = {}
 result[0] = phrase_query(query, index)
