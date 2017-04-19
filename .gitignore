@@ -47,3 +47,4 @@ Temporary Items
 .apdisk
 *.txt
 doc_index.bin
+*.pyc
