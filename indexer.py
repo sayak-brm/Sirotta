@@ -4,18 +4,17 @@ import pickle, tempfile, shutil
 def index_files(files):
     for file in files:
         print(file)
-        file_content = open(file, 'rb').read()
+        with open(file, 'rb') as f: file_content = f.read()
         text = file_content.decode('ascii', 'ignore')
-        text = tools.process(tools.filter_html(text))
-        with open('{}/{}.index'.format(temp, tools.process(file)), 'wb') as dump: pickle.dump(index_keywords(text.split()), dump)
+        kw = index_keywords(tools.process(tools.filter_html(text)).split())
+        with open('{}/{}.index'.format(temp, tools.process(file)), 'wb') as dump: pickle.dump(kw, dump)
 
 def index_keywords(keywords):
     kwIndex = tools.HDict()
     for index, word in enumerate(keywords):
         if word in kwIndex.keys():
             kwIndex[word].append(index)
-        else:
-            kwIndex[word] = [index]
+        else: kwIndex[word] = [index]
     return kwIndex
         
 def invert_index(files):
@@ -36,7 +35,7 @@ def invert_index(files):
 def build_index(files=__import__('glob').glob('corpus/**/*.html', recursive=True)):
     print('Stage 1:\n')
     index_files(files)
-    input('\n\nStage 2:\n')
+    print('\n\nStage 2:\n')
     with open('corpus.index', 'wb') as file: pickle.dump(invert_index(files), file)
 
 if __name__ =='__main__':
